@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>MongoDB.DocumentLocking</title>
+		<authors>Steen F. Tøttrup</authors>
+		<owners>CreativeMinds</owners>
+		<licenseUrl>http://creativeminds.dk/</licenseUrl>
+		<projectUrl>http://creativeminds.dk</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Easy exclusive locking of MongoDB documents.</description>
+		<language>en-GB</language>
+		<iconUrl>https://creativeminds.dk/ikon48_bigger.png</iconUrl>
+		<dependencies>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\release\MongoDB.DocumentLocking.dll" target="lib\net46\MongoDB.DocumentLocking.dll" />
+		<file src="bin\release\MongoDB.DocumentLocking.pdb" target="lib\net46\MongoDB.DocumentLocking.pdb" />
+	</files>
+</package>
