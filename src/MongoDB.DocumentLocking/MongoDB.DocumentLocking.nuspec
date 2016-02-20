@@ -13,10 +13,11 @@
 		<language>en-GB</language>
 		<iconUrl>https://creativeminds.dk/ikon48_bigger.png</iconUrl>
 		<dependencies>
+			<dependency id="MongoDB.Driver" version="2.2.3" />
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="bin\release\MongoDB.DocumentLocking.dll" target="lib\net46\MongoDB.DocumentLocking.dll" />
-		<file src="bin\release\MongoDB.DocumentLocking.pdb" target="lib\net46\MongoDB.DocumentLocking.pdb" />
+		<file src="bin\release\MongoDB.DocumentLocking.dll" target="lib\net45\MongoDB.DocumentLocking.dll" />
+		<file src="bin\release\MongoDB.DocumentLocking.pdb" target="lib\net45\MongoDB.DocumentLocking.pdb" />
 	</files>
 </package>

@@ -21,4 +21,5 @@ build:
 after_build:
 - ps: '#appveyor PushArtifact MongoDB.DocumentLocking.$env:APPVEYOR_BUILD_VERSION.nupkg'
 artifacts:
-- path: '**\*.nupkg'
+- path: '*.nupkg'
+#push to own feed?

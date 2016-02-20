@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MongoDB.DocumentLocking")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Easy exclusive locking of MongoDB documents.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("CreativeMinds")]
 [assembly: AssemblyProduct("MongoDB.DocumentLocking")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("CreativeMinds")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
