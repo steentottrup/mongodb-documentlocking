@@ -34,3 +34,7 @@ Another example. Here we do not have the Id of the document we need (maybe we're
 		// ... same as before!
 	}
 
+
+### Status
+
+[![Build status](https://ci.appveyor.com/api/projects/status/rw7nuw59bl3tvomw/branch/master?svg=true)](https://ci.appveyor.com/project/steentottrup97321/mongodb-documentlocking/branch/master)
