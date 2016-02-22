@@ -22,7 +22,7 @@ after_build:
 - ps: '#appveyor PushArtifact MongoDB.DocumentLocking.$env:APPVEYOR_BUILD_VERSION.nupkg'
 test:
   assemblies:
-    - '**tests.dll'
+    - '**\*.tests.dll'
 artifacts:
 - path: '*.nupkg'
 #push to own feed?
