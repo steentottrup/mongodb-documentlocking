@@ -1,6 +1,8 @@
 # MongoDB.DocumentLocking
 
-This is a small library that make it easy to get an exclusive lock on any MongoDB document.
+This is a small library that makes it easy to get an exclusive lock (in the application) on any MongoDB document.
+
+If you also update the documents directly through the collection, the locking mechanism will of course not work. For the locking mechanism to work, you need to use the document lock for all updates to all documents in the collection.
 
 Example:
 
@@ -21,7 +23,7 @@ Example:
 		}
 	}
 
-Another example, where we do not have the Id of the document we need (maybe we're locating it by status etc.).
+Another example. Here we do not have the Id of the document we need (maybe we're locating it by status etc.).
 
 	// Let's make a filter
 	var filter = Builders<Document>

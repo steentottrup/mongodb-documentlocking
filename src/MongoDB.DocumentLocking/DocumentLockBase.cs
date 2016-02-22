@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Linq.Expressions;
 
 namespace MongoDB.DocumentLocking {
 
@@ -57,6 +58,13 @@ namespace MongoDB.DocumentLocking {
 			});
 		}
 
+		protected virtual TDocument FindOneAndUpdate(Expression<Func<TDocument, Boolean>> filter, UpdateDefinition<TDocument> update) {
+			return this.dataStore.FindOneAndUpdate<TDocument>(filter, update, new FindOneAndUpdateOptions<TDocument, TDocument> {
+				ReturnDocument = ReturnDocument.After,
+				IsUpsert = false
+			});
+		}
+
 		public virtual void Release() {
 			// Do we have a lock?
 			if (!this.Locked) {
@@ -96,7 +104,7 @@ namespace MongoDB.DocumentLocking {
 
 		public virtual void Dispose() {
 			// Do we still have a lock?
-			if (this.lockedDocument != null) {
+			if (this.Locked) {
 				// Let's release it!
 				this.Release();
 			}

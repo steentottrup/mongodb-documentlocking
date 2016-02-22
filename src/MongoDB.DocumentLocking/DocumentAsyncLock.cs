@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MongoDB.DocumentLocking {
@@ -17,6 +18,9 @@ namespace MongoDB.DocumentLocking {
 		/// <param name="delay">Delay in ms between each attempt.</param>
 		/// <returns>True if the lock was obtained, else false.</returns>
 		public async Task<Boolean> Lock(FilterDefinition<TDocument> filter, Int32 attempts, Int32 delay) {
+			if (attempts < 1) {
+				return false;
+			}
 			Boolean done = false;
 			Int32 count = 0;
 			// Are we done yet??
@@ -25,12 +29,13 @@ namespace MongoDB.DocumentLocking {
 				this.lockedDocument = this.FindAndUpdate(filter, ObjectId.Empty, ObjectId.GenerateNewId());
 				// Did we lock it?
 				done = this.Locked;
-				if (!done) {
-					// Nope, let's wait then, and try again!
+				count++;
+
+				// Did we get the lock? And we have a delay? And we have more attempts?
+				if (!done && delay > 0 && count < attempts) {
+					// Nope, no lock yet, let's wait then, and try again!
 					await Task.Delay(delay);
 				}
-
-				count++;
 			}
 
 			return done;
@@ -42,7 +47,8 @@ namespace MongoDB.DocumentLocking {
 		/// <param name="filter">Filter to find one and only one document.</param>
 		/// <returns>True if the lock was obtained, else false.</returns>
 		public Task<Boolean> Lock(FilterDefinition<TDocument> filter) {
-			return this.Lock(filter, 3, 100);
+			// One attempt, no delay, go!
+			return this.Lock(filter, 1, 0);
 		}
 
 		/// <summary>
@@ -51,7 +57,8 @@ namespace MongoDB.DocumentLocking {
 		/// <param name="id">Id of the document.</param>
 		/// <returns>True if the lock was obtained, else false.</returns>
 		public Task<Boolean> Lock(ObjectId id) {
-			return this.Lock(id, 3, 100);
+			// One attempt, no delay, go!
+			return this.Lock(id, 1, 0);
 		}
 
 		/// <summary>
