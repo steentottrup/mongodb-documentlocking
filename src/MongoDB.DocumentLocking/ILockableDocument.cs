@@ -2,8 +2,11 @@
 using System;
 
 namespace MongoDB.DocumentLocking {
-	public interface ILockableDocument {
+
+	public interface ILockableDocument : ILockableDocument<ObjectId> { }
+
+	public interface ILockableDocument<TLockId> {
 		ObjectId Id { get; set; }
-		ObjectId LockId { get; set; }
+		TLockId LockId { get; set; }
 	}
 }

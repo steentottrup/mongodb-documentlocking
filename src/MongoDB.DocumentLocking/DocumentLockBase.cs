@@ -41,8 +41,15 @@ namespace MongoDB.DocumentLocking {
 				);
 
 			// Find the document, and update with the user's update definition.
-			this.lockedDocument = this.dataStore.FindOneAndUpdate(filter, update);
+			this.lockedDocument = this.FindOneAndUpdate(filter, update);
 			return this.lockedDocument;
+		}
+
+		protected virtual TDocument FindOneAndUpdate(FilterDefinition<TDocument> filter, UpdateDefinition<TDocument> update) {
+			return this.dataStore.FindOneAndUpdate<TDocument>(filter, update, new FindOneAndUpdateOptions<TDocument, TDocument> {
+				ReturnDocument = ReturnDocument.After,
+				IsUpsert = false
+			});
 		}
 
 		public virtual void Release() {
@@ -53,7 +60,11 @@ namespace MongoDB.DocumentLocking {
 			}
 
 			// Let's release the document but settings lockId back to empty!
-			this.FindAndUpdate(Builders<TDocument>.Filter.Eq(d => d.Id, this.lockedDocument.Id), this.lockedDocument.LockId, ObjectId.Empty);
+			TDocument returned = this.FindAndUpdate(Builders<TDocument>.Filter.Eq(d => d.Id, this.lockedDocument.Id), this.lockedDocument.LockId, ObjectId.Empty);
+			if (!(returned != null && returned.LockId == ObjectId.Empty)) {
+				// TODO:
+				throw new ApplicationException("did not release?");
+			}
 			// We're done, we no longer have the lock!
 			this.lockedDocument = null;
 		}
@@ -65,7 +76,7 @@ namespace MongoDB.DocumentLocking {
 				.Eq(d => d.LockId, initialLockId);
 
 			// And then we need to combine that with whatever filter the user wants applied.
-			filter = Builders<TDocument>
+			FilterDefinition<TDocument> internalFilter = Builders<TDocument>
 				.Filter
 				.And(filter, lockIdFilter);
 
@@ -74,8 +85,8 @@ namespace MongoDB.DocumentLocking {
 				.Update
 				.Set(d => d.LockId, endLockId);
 
-			// TODO: Get this from the DB again to make sure??
-			return dataStore.FindOneAndUpdate<TDocument>(filter, update);
+			// Update and return!
+			return this.FindOneAndUpdate(internalFilter, update);
 		}
 
 		public virtual void Dispose() {
