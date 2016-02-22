@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Threading.Tasks;
 
 namespace MongoDB.DocumentLocking.Tests {
 
@@ -111,6 +112,35 @@ namespace MongoDB.DocumentLocking.Tests {
 
 			using (DocumentLock<TestClass> docLock = new DocumentLock<TestClass>(collection, filter)) {
 				docLock.Locked.Should().Be(true, "Matched on name");
+				docLock.Release();
+			}
+		}
+
+		[TestMethod]
+		public void LockAlreadyLocked() {
+			IMongoCollection<TestClass> collection = Common.GetCollection();
+			String originalName = "Original Name";
+			TestClass initialObj = new TestClass {
+				LockId = ObjectId.Empty,
+				Name = originalName
+			};
+			collection.InsertOne(initialObj);
+			ObjectId id = initialObj.Id;
+
+			using (DocumentLock<TestClass> docLock = new DocumentLock<TestClass>(collection, id)) {
+				docLock.Locked.Should().Be(true, "Only document");
+
+				using (DocumentLock<TestClass> docLock2 = new DocumentLock<TestClass>(collection, id)) {
+					docLock2.Locked.Should().Be(false, "already locked");
+
+					UpdateDefinition<TestClass> update = Builders<TestClass>
+						.Update
+						.Set(d => d.Name, "New name");
+
+					Action action = () => docLock2.Update(update);
+					action.ShouldThrow<NoDocumentLockedException>();
+				}
+
 				docLock.Release();
 			}
 		}

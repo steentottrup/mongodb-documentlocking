@@ -25,11 +25,16 @@ namespace MongoDB.DocumentLocking {
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="update"></param>
+		/// <exception cref="NoDocumentLockedException"></exception>
+		/// <returns></returns>
 		public virtual TDocument Update(UpdateDefinition<TDocument> update) {
 			// Do we have a document?
 			if (!this.Locked) {
-				// TODO:
-				throw new ApplicationException("Document not locked!");
+				throw new NoDocumentLockedException();
 			}
 
 			// Let's make sure we get the right, locked document
