@@ -13,6 +13,8 @@ cache: packages -> **\packages.config
 nuget:
   account_feed: true
   project_feed: true
+services:
+- mongodb
 before_build:
   - nuget restore
 build:
