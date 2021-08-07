@@ -1,7 +1,8 @@
-﻿using System;
+﻿using CreativeMinds.MongoDBDocumentLocking;
 using MongoDB.Bson;
+using System;
 
-namespace MongoDB.DocumentLocking.Tests {
+namespace CreativeMinds.Tests.MongoDBDocumentLocking {
 
 	public class TestClass : ILockableDocument {
 

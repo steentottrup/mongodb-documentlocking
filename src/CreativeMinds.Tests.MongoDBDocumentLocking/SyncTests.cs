@@ -1,16 +1,16 @@
-﻿using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using CreativeMinds.MongoDBDocumentLocking;
+using CreativeMinds.MongoDBDocumentLocking.Sync;
+using FluentAssertions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
-using System.Threading.Tasks;
+using Xunit;
 
-namespace MongoDB.DocumentLocking.Tests {
+namespace CreativeMinds.Tests.MongoDBDocumentLocking {
 
-	[TestClass]
 	public class SyncTests {
 
-		[TestMethod]
+		[Fact]
 		public void ObtainLock() {
 			IMongoCollection<TestClass> collection = Common.GetCollection();
 			String originalName = "Original Name";
@@ -37,7 +37,7 @@ namespace MongoDB.DocumentLocking.Tests {
 			obj.LockId.Should().Be(ObjectId.Empty);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void ObtainLockAmongMultiple() {
 			IMongoCollection<TestClass> collection = Common.GetCollection();
 			String originalName = "Original Name";
@@ -76,7 +76,7 @@ namespace MongoDB.DocumentLocking.Tests {
 			obj.LockId.Should().Be(ObjectId.Empty);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void NoMatch() {
 			IMongoCollection<TestClass> collection = Common.GetCollection();
 
@@ -88,7 +88,7 @@ namespace MongoDB.DocumentLocking.Tests {
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MatchWithoutId() {
 			IMongoCollection<TestClass> collection = Common.GetCollection();
 			String originalName = "Original Name";
@@ -116,7 +116,7 @@ namespace MongoDB.DocumentLocking.Tests {
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void LockAlreadyLocked() {
 			IMongoCollection<TestClass> collection = Common.GetCollection();
 			String originalName = "Original Name";
@@ -138,7 +138,7 @@ namespace MongoDB.DocumentLocking.Tests {
 						.Set(d => d.Name, "New name");
 
 					Action action = () => docLock2.Update(update);
-					action.ShouldThrow<NoDocumentLockedException>();
+					action.Should().Throw<NoDocumentLockedException>();
 				}
 
 				docLock.Release();

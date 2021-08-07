@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreativeMinds.MongoDBDocumentLocking", "CreativeMinds.MongoDBDocumentLocking\CreativeMinds.MongoDBDocumentLocking.csproj", "{09FA8020-BCAF-41D2-86EB-BE7E98A15B45}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreativeMinds.Tests.MongoDBDocumentLocking", "CreativeMinds.Tests.MongoDBDocumentLocking\CreativeMinds.Tests.MongoDBDocumentLocking.csproj", "{419A6A20-DA19-4487-BD86-3B395AF4869F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E64243A9-F137-49DE-B156-2F033F6EE048}"
+	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09FA8020-BCAF-41D2-86EB-BE7E98A15B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FA8020-BCAF-41D2-86EB-BE7E98A15B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FA8020-BCAF-41D2-86EB-BE7E98A15B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FA8020-BCAF-41D2-86EB-BE7E98A15B45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419A6A20-DA19-4487-BD86-3B395AF4869F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419A6A20-DA19-4487-BD86-3B395AF4869F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419A6A20-DA19-4487-BD86-3B395AF4869F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419A6A20-DA19-4487-BD86-3B395AF4869F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CAFAE938-A142-41D4-8B97-C6712D48682C}
+	EndGlobalSection
+EndGlobal

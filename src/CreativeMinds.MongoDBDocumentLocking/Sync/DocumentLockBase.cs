@@ -3,28 +3,11 @@ using MongoDB.Driver;
 using System;
 using System.Linq.Expressions;
 
-namespace MongoDB.DocumentLocking {
+namespace CreativeMinds.MongoDBDocumentLocking.Sync {
 
-	public abstract class DocumentLockBase<TDocument> : IDisposable where TDocument : class, ILockableDocument {
-		protected readonly IMongoCollection<TDocument> dataStore;
-		protected TDocument lockedDocument = null;
+	public abstract class DocumentLockBase<TDocument> : Common.DocumentLockBaseCommon<TDocument>, IDisposable where TDocument : class, ILockableDocument {
 
-		protected DocumentLockBase(IMongoCollection<TDocument> dataStore) {
-			this.dataStore = dataStore;
-		}
-
-		public virtual TDocument Document {
-			get {
-				return this.lockedDocument;
-			}
-		}
-
-		public virtual Boolean Locked {
-			get {
-				// Do we have a document? And the lock Id isn't the empty Id?
-				return this.Document != null && this.Document.LockId != ObjectId.Empty;
-			}
-		}
+		protected DocumentLockBase(IMongoCollection<TDocument> dataStore) : base(dataStore) { }
 
 		/// <summary>
 		/// 
@@ -102,7 +85,7 @@ namespace MongoDB.DocumentLocking {
 			return this.FindOneAndUpdate(internalFilter, update);
 		}
 
-		public virtual void Dispose() {
+		public override void Dispose() {
 			// Do we still have a lock?
 			if (this.Locked) {
 				// Let's release it!

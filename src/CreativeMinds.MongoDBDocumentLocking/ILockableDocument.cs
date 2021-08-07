@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
-using System;
 
-namespace MongoDB.DocumentLocking {
+namespace CreativeMinds.MongoDBDocumentLocking {
 
 	public interface ILockableDocument : ILockableDocument<ObjectId> { }
 

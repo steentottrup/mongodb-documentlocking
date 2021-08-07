@@ -1,15 +1,13 @@
 ﻿using MongoDB.Driver;
 using System;
 
-namespace MongoDB.DocumentLocking.Tests {
-
+namespace CreativeMinds.Tests.MongoDBDocumentLocking {
 
 	public static class Common {
 		private const String mongoUrl = "mongodb://localhost/test";
 
 		private static void CleanUp(IMongoDatabase db) {
 			db.DropCollectionAsync("testclass");
-
 		}
 
 		public static IMongoCollection<TestClass> GetCollection() {
