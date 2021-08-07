@@ -4,6 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
 		<Version>1.0.0</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Steen F. Tøttrup</Authors>
+		<Company>CreativeMinds ApS</Company>
+		<RepositoryType>Git</RepositoryType>
+		<RepositoryUrl>https://github.com/steentottrup/mongodb-documentlocking</RepositoryUrl>
+		<PackageTags>MongoDB</PackageTags>
+		<PackageProjectUrl>https://github.com/steentottrup/mongodb-documentlocking</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
