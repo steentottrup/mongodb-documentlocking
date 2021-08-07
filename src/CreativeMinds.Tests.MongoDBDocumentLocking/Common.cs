@@ -4,7 +4,7 @@ using System;
 namespace CreativeMinds.Tests.MongoDBDocumentLocking {
 
 	public static class Common {
-		private const String mongoUrl = "mongodb://localhost/test";
+		private static String mongoUrl = $"mongodb://localhost/test{DateTime.UtcNow:yyyyMMddhhmmss}";
 
 		private static void CleanUp(IMongoDatabase db) {
 			db.DropCollectionAsync("testclass");

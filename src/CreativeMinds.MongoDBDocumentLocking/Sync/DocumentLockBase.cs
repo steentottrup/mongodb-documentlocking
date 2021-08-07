@@ -55,7 +55,7 @@ namespace CreativeMinds.MongoDBDocumentLocking.Sync {
 				return;
 			}
 
-			// Let's release the document but settings lockId back to empty!
+			// Let's release the document by settings lockId back to empty!
 			TDocument returned = this.FindAndUpdate(Builders<TDocument>.Filter.Eq(d => d.Id, this.lockedDocument.Id), this.lockedDocument.LockId, ObjectId.Empty);
 			if (!(returned != null && returned.LockId == ObjectId.Empty)) {
 				// TODO:
