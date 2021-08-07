@@ -1,5 +1,8 @@
 version: 1.0.0.{build}
+image: Visual Studio 2019
 configuration: Release
+services:
+  - mongodb
 init:
 - ps: "nuget sources update -Name AppVeyorAccountFeed -Source $env:nuget_source -UserName $env:nuget_user -Password $env:nuget_password"
 dotnet_csproj:
@@ -15,11 +18,15 @@ environment:
 nuget:
   account_feed: true
   project_feed: true
-build_script:
-  - ps: >-
-      dotnet build src\creativeminds.mongodbdocumentlocking\ -c Release
+build:
+  project: src\CreativeMinds.MongoDBDocumentLocking.sln
+  publish_wap_octopus: true
+  verbosity: minimal
 
-after_build:
+after_test:
   - ps: >-
       Push-AppveyorArtifact src\CreativeMinds.mongodbdocumentlocking\bin\Release\*.nupkg
 
+test:
+  assemblies:
+  - 
